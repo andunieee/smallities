@@ -3,7 +3,6 @@
 
 use rinf::debug_print;
 
-mod signals;
 mod state;
 
 // Uncomment below to target the web.

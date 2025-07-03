@@ -1,5 +1,10 @@
-use crate::signals::Box;
 use rinf::{DartSignal, RustSignal};
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, RustSignal, DartSignal)]
+pub struct Box {
+    pub current_number: i32,
+}
 
 pub async fn state_handler() {
     let receiver = Box::get_dart_signal_receiver();
