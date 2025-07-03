@@ -18,18 +18,20 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'smallities'),
+      home: const Home(title: 'smallities'),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class Home extends StatelessWidget {
   final String title;
 
-  const MyHomePage({super.key, required this.title});
+  const Home({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
+    int currentNumber = 0;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -39,37 +41,30 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            ElevatedButton(
-              onPressed: () async {
-                MyPreciousData(
-                  inputNumbers: [3, 4, 5],
-                  inputString: 'Zero-cost abstraction',
-                ).sendSignalToRust(); // GENERATED
-              },
-              child: const Text('Send a Signal from Dart to Rust'),
-            ),
+            const Text('current number'),
             StreamBuilder(
-              stream: MyAmazingNumber.rustSignalStream, // GENERATED
+              stream: Box.rustSignalStream,
               builder: (context, snapshot) {
                 final signalPack = snapshot.data;
-                if (signalPack == null) {
-                  return const Text('Nothing received yet');
+                if (signalPack != null) {
+                  currentNumber = signalPack.message.currentNumber;
                 }
-                final myAmazingNumber = signalPack.message;
-                final currentNumber = myAmazingNumber.currentNumber;
-                return Text(currentNumber.toString());
+                return Text(
+                  currentNumber.toString(),
+                  style: Theme.of(context).textTheme.headlineMedium,
+                );
               },
             ),
-            Text('1', style: Theme.of(context).textTheme.headlineMedium),
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          Box(currentNumber: currentNumber + 1).sendSignalToRust();
+        },
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
