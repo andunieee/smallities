@@ -3,15 +3,11 @@ import "package:smallities/chat/chat_input_field.dart";
 import "package:smallities/chat/message_bubble.dart";
 import "package:smallities/src/bindings/bindings.dart";
 
-class MessagesView extends StatelessWidget {
+class ChatView extends StatelessWidget {
   final String chatId;
   final VoidCallback onBack;
 
-  const MessagesView({
-    super.key,
-    required this.chatId,
-    required this.onBack,
-  });
+  const ChatView({super.key, required this.chatId, required this.onBack});
 
   @override
   Widget build(BuildContext context) {
