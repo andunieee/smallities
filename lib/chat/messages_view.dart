@@ -3,15 +3,28 @@ import "package:smallities/chat/chat_input_field.dart";
 import "package:smallities/chat/message_bubble.dart";
 import "package:smallities/src/bindings/bindings.dart";
 
-class ChatView extends StatelessWidget {
-  const ChatView({super.key});
+class MessagesView extends StatelessWidget {
+  final String chatId;
+  final VoidCallback onBack;
+
+  const MessagesView({
+    super.key,
+    required this.chatId,
+    required this.onBack,
+  });
 
   @override
   Widget build(BuildContext context) {
     List<ChatMessage> messages = [];
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Chat")),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: onBack,
+        ),
+        title: Text("Chat $chatId"),
+      ),
       body: Column(
         children: [
           Expanded(

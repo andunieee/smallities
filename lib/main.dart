@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:rinf/rinf.dart';
-import 'package:smallities/chat/chat_view.dart';
-import 'package:smallities/src/bindings/bindings.dart';
+import "package:flutter/material.dart";
+import "package:rinf/rinf.dart";
+import "package:smallities/chat/chat_list.dart";
+import "package:smallities/chat/messages_view.dart";
+import "package:smallities/src/bindings/bindings.dart";
 
 void main() {
   initializeRust(assignRustSignal);
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'smallities',
+      title: "smallities",
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -24,11 +25,35 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  String? _selectedChatId;
+
+  @override
   Widget build(BuildContext context) {
-    return const ChatView();
+    if (_selectedChatId == null) {
+      return ChatList(
+        onChatSelected: (chatId) {
+          setState(() {
+            _selectedChatId = chatId;
+          });
+        },
+      );
+    } else {
+      return MessagesView(
+        chatId: _selectedChatId!,
+        onBack: () {
+          setState(() {
+            _selectedChatId = null;
+          });
+        },
+      );
+    }
   }
 }
