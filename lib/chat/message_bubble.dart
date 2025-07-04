@@ -42,22 +42,24 @@ class MessageBubble extends StatelessWidget {
               ),
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
               margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              child: Column(
-                crossAxisAlignment: message.isMe
-                    ? CrossAxisAlignment.end
-                    : CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    message.user.name,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    message.content,
-                    style: TextStyle(
-                      color: message.isMe ? Colors.black : Colors.white,
+              child: SelectionArea(
+                child: Column(
+                  crossAxisAlignment: message.isMe
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      message.user.name,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                  ),
-                ],
+                    Text(
+                      message.content,
+                      style: TextStyle(
+                        color: message.isMe ? Colors.black : Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
