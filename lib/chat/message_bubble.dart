@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:smallities/src/bindings/bindings.dart';
+import "package:flutter/material.dart";
+import "package:smallities/src/bindings/bindings.dart";
 
 class MessageBubble extends StatelessWidget {
   final ChatMessage message;
@@ -9,16 +9,18 @@ class MessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment:
-          message.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisAlignment: message.isMe
+          ? MainAxisAlignment.end
+          : MainAxisAlignment.start,
       children: <Widget>[
         if (!message.isMe)
           CircleAvatar(
             backgroundImage: message.user.avatar != null
                 ? NetworkImage(message.user.avatar!)
                 : null,
-            child:
-                message.user.avatar == null ? Text(message.user.name[0]) : null,
+            child: message.user.avatar == null
+                ? Text(message.user.name[0])
+                : null,
           ),
         Flexible(
           child: Container(
@@ -63,8 +65,9 @@ class MessageBubble extends StatelessWidget {
             backgroundImage: message.user.avatar != null
                 ? NetworkImage(message.user.avatar!)
                 : null,
-            child:
-                message.user.avatar == null ? Text(message.user.name[0]) : null,
+            child: message.user.avatar == null
+                ? Text(message.user.name[0])
+                : null,
           ),
       ],
     );

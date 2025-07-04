@@ -32,4 +32,3 @@ class Home extends StatelessWidget {
     return const ChatView();
   }
 }
-
